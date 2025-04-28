@@ -165,14 +165,49 @@ namespace taks
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("------------------ Find Second Largest Number-----------------");
-            Console.WriteLine("||     ||    ||     ||    ||     ||     ||    ||     ||    ||");
-            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("||     ||    ||     ||    ||     ||     ||    ||     ||     ||");
+            Console.WriteLine("--------------------------------------------------------------");
+            Console.ResetColor();
+
+            int[] arr = new int[10];
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Enter the 10 Array Elements: ");
+            Console.ResetColor();
+
+            for(int i =0; i < 10; i++)
+            {
+                arr[i] = int.Parse(Console.ReadLine()); 
+            }
+
+            int max = arr[0];
+            int secondMax = 0;
+
+            foreach(int i in arr)
+            {
+                int currentmax = max;
+                if(i > max)
+                {
+                    max = i;
+                    secondMax = currentmax;
+                }
+            }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("------------------ Find Second Largest Number-----------------");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("The Second Lasted Number in the Array is "+secondMax);
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("------------------ Find Second Largest Number-----------------");
             Console.ResetColor();
         }
 
         static void Main(string[] args)
         {
-            Calculator();
+            //Calculator();
             SecondLargesNumber();
         }
     }
