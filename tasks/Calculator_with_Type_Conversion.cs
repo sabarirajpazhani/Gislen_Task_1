@@ -354,72 +354,80 @@ namespace taks
             Console.ResetColor();
         }
 
-
-
-
-
-
-
-        public static void ATM_Menu()
+        public static void SafeNumber()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("========================= ATM Menu =========================");
-            Console.WriteLine("||                           ||                           ||");
-            Console.WriteLine("------------------------------------------------------------");
-            Console.ResetColor();
-
-            Console.WriteLine("                    Choose the Operations                   ");
-            Console.WriteLine("                    1. Check Balance                        ");
-            Console.WriteLine("                    2. Deposit                              ");
-            Console.WriteLine("                    3. Withdraw                             ");
-            Console.WriteLine("                    4. Exist                                ");
+            List<int> list = new List<int>();
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("------------------- Safe Number Collector -------------------");
+            Console.WriteLine("||  ~  ||    ||    ||    ||   ~   ||    ||    ||     || ~  ||");
+            Console.WriteLine("-------------------------------------------------------------");
             Console.ResetColor();
 
-            Hashtable bank = new Hashtable()
-            {
-                {2041, new BankDetails{AC_Num= 2041, name = "Thamizh", balance = 60000} },
-                {2065, new BankDetails{AC_Num= 2065, name = "Sharmila", balance = 70000} },
-                {4034, new BankDetails{AC_Num= 4034, name = "Subha", balance = 90000}  },
-                {5621, new BankDetails{AC_Num= 5621, name = "Sabari", balance = 50000}  }
-            };
+            Console.WriteLine("           Enter 'exit' for Stoping the Iteration            ");
+         
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("_____________________________________________________________");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("              Safe Number Colleter is Started                ");
+            Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Enter the Choice : ");
+            Console.WriteLine("Enter the Elements Here");
             Console.ResetColor();
-            int choice = int.Parse(Console.ReadLine());
 
-            switch (choice)
+            List<int> l = new List<int>();
+
+            while (true) {
+                
+                string input = Console.ReadLine();
+
+                if(input == "exit")
+                {
+                    break;
+                }
+
+                bool success = int.TryParse(input, out int number);
+
+                if (success)
+                {
+                    l.Add(number);
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("____________________________________________________________");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Displaying the valid Integers Collections");
+            Console.ResetColor();
+
+            
+            foreach(int i in l)
             {
-                case 1:
-                    Console.WriteLine("You Enter 1 for Check the Bank Balance");
-                    Console.Write("Enter the Account Number A/C: ");
-                    int acNum = int.Parse(Console.ReadLine());
-                    checkBalance();
-
+                Console.Write(i + " ");
             }
         }
 
-        public static void checkbalance()
-        {
-
-        }
 
 
 
 
 
 
-
-
+        
         static void Main(string[] args)
         {
             //Calculator();
             //SecondLargesNumber();
             //MiniSuperMarket();
-            ATM_Menu();
+            SafeNumber();
         }
 
         public class BankDetails
