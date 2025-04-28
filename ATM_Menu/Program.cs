@@ -32,7 +32,7 @@ namespace ATM_Menu
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Account Not Found");
+                Console.WriteLine("Account Not Found :(");
                 Console.ResetColor();
             }   
         }
@@ -41,27 +41,72 @@ namespace ATM_Menu
         {
             if(bank.Contains(acNum))
             {
-                foreach(DictionaryEntry i in bank)
-                {
-                    BankDetails details = (BankDetails)i.Value;
 
-                    if (i.Key.Equals(acNum))
-                    {
-                        bank[i.Key] = details.balance + dMoney;
+                BankDetails details = (BankDetails) bank[acNum];
+                details.balance += dMoney;
 
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Successfully Deposited :)");
-                        Console.ResetColor();
-                        Console.WriteLine(" Bank Balance: A/C :"+details.AC_Num+" : Name: "+ details.name +"Balance : "+details.balance);
-                    }
-                }
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("||     ~~~~~~    Bill for the Money Deposit     ~~~~~~    ||");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.ResetColor();
+
+                Console.WriteLine("Account Number : "+details.AC_Num);
+                Console.WriteLine("Account Holder Name : "+details.name);
+                Console.WriteLine("Balance : "+details.balance);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You are amount was Successfully Deposited :)");
+                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.ResetColor();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Account Not Found");
+                Console.WriteLine("Account Not Found :(");
                 Console.ResetColor();
             }
+        }
+
+        public static void moneyWithdraw(int acNum, int money, Hashtable bank)
+        {
+
+            BankDetails details = (BankDetails)bank[acNum];
+
+            if (details.balance >= money)
+            {
+                details.balance -= money;
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("||     ~~~~~~    Bill for the Money withdraw     ~~~~~~    ||");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.ResetColor();
+
+                Console.WriteLine("Account Number : " + details.AC_Num);
+                Console.WriteLine("Account Holder Name : " + details.name);
+                Console.WriteLine("Balance : " + details.balance);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You are amount was Successfully Withdraw :)");
+                Console.ResetColor();
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Insuffient Bank Balance :(");
+                Console.ResetColor();
+            }
+           
         }
 
         static void Main(string[] args)
@@ -86,8 +131,8 @@ namespace ATM_Menu
             {
                 {2041, new BankDetails{AC_Num= 2041, name = "Thamizh", balance = 60000} },
                 {2065, new BankDetails{AC_Num= 2065, name = "Sharmila", balance = 70000} },
-                {4034, new BankDetails{AC_Num= 4034, name = "Subha", balance = 90000}  },
-                {5621, new BankDetails{AC_Num= 5621, name = "Sabari", balance = 50000}  }
+                {4034, new BankDetails{AC_Num= 4034, name = "Subha", balance = 90000} },
+                {5621, new BankDetails{AC_Num= 5621, name = "Sabari", balance = 50000} }
             };
 
            
@@ -102,6 +147,7 @@ namespace ATM_Menu
                 if (choice == 4)
                 {
                     Console.WriteLine("Thank You !!");
+                    Console.ReadLine();
                     break;
                 }
                 switch (choice)
@@ -120,13 +166,47 @@ namespace ATM_Menu
                         Console.Write("Enter the Account Number: ");
                         int acNum1 = int.Parse(Console.ReadLine());
 
-                        Console.WriteLine("Enter the Amount for Deposit");
-                        int dMoney = int.Parse(Console.ReadLine());
+                        if (bank.ContainsKey(acNum1))
+                        {
+                            Console.Write("Enter the Amount for Deposit : ");
+                            int dMoney = int.Parse(Console.ReadLine());
 
-                        moneyDeposit(acNum1, dMoney, bank);
+                            moneyDeposit(acNum1, dMoney, bank);
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Account Not Found :(");
+                            Console.ResetColor();
+                        }
+                        break;
+
+                    case 3:
+                        Console.WriteLine("You Enter 3 for Withdraw the Money from Bank");
+
+                        Console.Write("Enter the Account Number: ");
+                        int acNum2 = int.Parse(Console.ReadLine());
+
+                        if (bank.ContainsKey(acNum2))
+                        {
+                            Console.Write("Enter the Amount for the Withdraw: ");
+                            int wMoney = int.Parse(Console.ReadLine());
+                            moneyWithdraw(acNum2, wMoney, bank);
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Account Not Found :(");
+                            Console.ResetColor();
+                        }
 
                         break;
 
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid choice. Please make a correct choice. :(");
+                        Console.ResetColor();
+                        break;
                 }
             }
         }
